@@ -20,5 +20,6 @@
 
 install(FILES
     m17_m17_framer.block.yml
-    m17_m17_lich_gen.block.yml DESTINATION share/gnuradio/grc/blocks
+    m17_m17_lich_gen.block.yml
+    m17_superframe_combiner.block.yml DESTINATION share/gnuradio/grc/blocks
 )

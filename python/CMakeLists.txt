@@ -34,7 +34,8 @@ GR_PYTHON_INSTALL(
     __init__.py
     m17_lich.py
     m17_framer.py
-    m17_lich_gen.py DESTINATION ${GR_PYTHON_DIR}/m17
+    m17_lich_gen.py
+    superframe_combiner.py DESTINATION ${GR_PYTHON_DIR}/m17
 )
 
 ########################################################################
@@ -46,3 +47,4 @@ set(GR_TEST_TARGET_DEPS gnuradio-m17)
 set(GR_TEST_PYTHON_DIRS ${CMAKE_BINARY_DIR}/swig)
 GR_ADD_TEST(qa_m17_framer ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_m17_framer.py)
 GR_ADD_TEST(qa_m17_lich_gen ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_m17_lich_gen.py)
+GR_ADD_TEST(qa_superframe_combiner ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_superframe_combiner.py)
