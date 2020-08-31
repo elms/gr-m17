@@ -57,14 +57,18 @@ def crc16_m17(data_in, add_tail=False):
     """
     Calculate M17 CRC for a stream of data
     """
-    poly = 0xAC9A
-    init = 0xFFFF
+    #poly = ((0xAC9A8 << 1) | 1) & 0xffff
+    poly = 0x1021
+    poly = ((poly >> 1 ) | 0x8000) & 0xffff
+    init = 0#xFFFF
     reg = init
     def calc_byte(reg, in_byte):
         for i in range(7, -1, -1):
             bit = (in_byte >> i) & 1
             out = (reg >> 15) & 1
-            reg = ((reg << 1) | bit) ^ (poly * out)
+            inp = bit ^ out
+            #reg = ((reg << 1) ^ (poly * inp)) & 0xffff
+            reg = (((reg ^ (poly * inp)) << 1) | inp) & 0xffff
         return reg
 
     for byte in data_in:
@@ -94,7 +98,7 @@ class lich(object):
             struct.pack('>H', self.stream_type) +
             self.nonce
         )
-        crc = crc16_m17(lich_data, True)
+        crc = crc16_m17(lich_data)
         return lich_data + struct.pack('>H', crc)
 
     def asList(self):
