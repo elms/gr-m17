@@ -37,4 +37,5 @@ from .add_sync import add_sync
 from .add_fn import add_fn
 from .vector_concat import vector_concat
 from .add_crc import add_crc
+from .golay_enc import golay_enc
 #
