@@ -4,7 +4,7 @@ category: '[m17]'
 
 templates:
   imports: import m17
-  make: m17.golay_enc(${unpacked}, ${vlen}b)
+  make: m17.golay_enc(${unpacked}, ${vlen})
 
 #  Make one 'parameters' list entry for every parameter you want settable from the GUI.
 #     Keys include:
@@ -15,14 +15,15 @@ parameters:
 - id: unpacked
   label: Unpacked Bits
   dtype: bool
+  default: False
 - id: vlen
   label: Vector Length
   dtype: int
-  hide: ${ unpacked }
   default: 3
+  hide: ${ "part" if unpacked else "none" }
 
 asserts:
-- ${ unpacked || ((vlen > 0) && (0 == (vlen % 3))) }
+- ${ unpacked or ((vlen > 0) and (0 == (vlen % 3))) }
 
 #  Make one 'inputs' list entry per input and one 'outputs' list entry per output.
 #  Keys include:
@@ -34,12 +35,12 @@ asserts:
 inputs:
 - domain: stream
   dtype: byte
-  vlen: 12
+  vlen: ${ 12 if unpacked else vlen }
 
 outputs:
 - domain: stream
   dtype: byte
-  vlen: 24
+  vlen: ${ 24 if unpacked else 2*vlen }
 
 #  'file_format' specifies the version of the GRC yml format used in the file
 #  and should usually not be changed.
