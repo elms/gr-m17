@@ -35,7 +35,7 @@ GR_PYTHON_INSTALL(
     m17_lich.py
     m17_framer.py
     m17_lich_gen.py
-    superframe_combiner.py DESTINATION ${GR_PYTHON_DIR}/m17
+    superframe_combiner.py
     add_sync.py
     add_fn.py
     vector_concat.py
